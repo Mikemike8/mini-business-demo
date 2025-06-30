@@ -1,0 +1,92 @@
+{
+  "topDebtors": [
+    {
+      "id": 1,
+      "anonymizedName": "Manufacturing Corp X",
+      "industry": "Manufacturing",
+      "debtAmount": 485000,
+      "recoveredAmount": 425000,
+      "recoveryRate": 87.6,
+      "timeToResolution": 45,
+      "status": "Resolved",
+      "caseType": "Trade Debt"
+    },
+    {
+      "id": 2,
+      "anonymizedName": "Tech Solutions Ltd",
+      "industry": "Technology",
+      "debtAmount": 320000,
+      "recoveredAmount": 295000,
+      "recoveryRate": 92.2,
+      "timeToResolution": 38,
+      "status": "Resolved",
+      "caseType": "Service Agreement"
+    },
+    {
+      "id": 3,
+      "anonymizedName": "Construction Co Y",
+      "industry": "Construction",
+      "debtAmount": 780000,
+      "recoveredAmount": 650000,
+      "recoveryRate": 83.3,
+      "timeToResolution": 67,
+      "status": "Resolved",
+      "caseType": "Contract Dispute"
+    },
+    {
+      "id": 4,
+      "anonymizedName": "Retail Chain Z",
+      "industry": "Retail",
+      "debtAmount": 225000,
+      "recoveredAmount": 225000,
+      "recoveryRate": 100,
+      "timeToResolution": 28,
+      "status": "Resolved",
+      "caseType": "Goods Supplied"
+    },
+    {
+      "id": 5,
+      "anonymizedName": "Healthcare Group A",
+      "industry": "Healthcare",
+      "debtAmount": 560000,
+      "recoveredAmount": 490000,
+      "recoveryRate": 87.5,
+      "timeToResolution": 52,
+      "status": "Resolved",
+      "caseType": "Equipment Lease"
+    },
+    {
+      "id": 6,
+      "anonymizedName": "Logistics Provider B",
+      "industry": "Logistics",
+      "debtAmount": 145000,
+      "recoveredAmount": 140000,
+      "recoveryRate": 96.6,
+      "timeToResolution": 21,
+      "status": "Resolved",
+      "caseType": "Transportation Services"
+    },
+    {
+      "id": 7,
+      "anonymizedName": "Energy Company C",
+      "industry": "Energy",
+      "debtAmount": 890000,
+      "recoveredAmount": 712000,
+      "recoveryRate": 80.0,
+      "timeToResolution": 89,
+      "status": "Resolved",
+      "caseType": "Supply Contract"
+    },
+    {
+      "id": 8,
+      "anonymizedName": "Financial Services D",
+      "industry": "Finance",
+      "debtAmount": 375000,
+      "recoveredAmount": 337500,
+      "recoveryRate": 90.0,
+      "timeToResolution": 43,
+      "status": "Resolved",
+      "caseType": "Professional Services"
+    }
+  ]
+}

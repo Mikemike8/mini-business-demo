@@ -1,0 +1,40 @@
+{
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Michael R. Thompson",
+      "title": "CEO, Thompson Manufacturing",
+      "company": "Thompson Manufacturing Inc.",
+      "text": "Reesor & Associates recovered $425,000 from a stubborn debtor in just 45 days. Their professional approach and legal expertise made all the difference. Highly recommended for any business facing collection challenges.",
+      "rating": 5,
+      "recoveredAmount": 425000
+    },
+    {
+      "id": 2,
+      "name": "Sarah Chen",
+      "title": "CFO, TechFlow Solutions",
+      "company": "TechFlow Solutions",
+      "text": "We had given up on recovering $295,000 from a defaulted client. Reesor & Associates achieved a 92% recovery rate in under 40 days. Their expertise in commercial debt collection is unmatched.",
+      "rating": 5,
+      "recoveredAmount": 295000
+    },
+    {
+      "id": 3,
+      "name": "David Martinez",
+      "title": "Owner, Elite Construction",
+      "company": "Elite Construction LLC",
+      "text": "Professional, efficient, and results-driven. They recovered 100% of our $225,000 debt in less than a month. Their understanding of business relationships is exceptional.",
+      "rating": 5,
+      "recoveredAmount": 225000
+    },
+    {
+      "id": 4,
+      "name": "Jennifer Adams",
+      "title": "Finance Director, MedCore Health",
+      "company": "MedCore Health Systems",
+      "text": "Reesor & Associates handled our complex healthcare equipment lease dispute with utmost professionalism. They recovered $490,000 while maintaining our business relationships intact.",
+      "rating": 5,
+      "recoveredAmount": 490000
+    }
+  ]
+}

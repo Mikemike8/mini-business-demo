@@ -1,0 +1,74 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "title": "Commercial Debt Recovery",
+      "description": "Specialized recovery of business-to-business debts including trade debts, contract disputes, and unpaid invoices.",
+      "features": [
+        "Pre-legal demand letters",
+        "Negotiation and settlement",
+        "Asset investigation",
+        "Legal action when necessary"
+      ],
+      "icon": "briefcase"
+    },
+    {
+      "id": 2,
+      "title": "Contract Dispute Resolution",
+      "description": "Expert handling of complex commercial contract disputes and breaches affecting your business relationships.",
+      "features": [
+        "Contract analysis",
+        "Dispute mediation",
+        "Settlement negotiation",
+        "Litigation support"
+      ],
+      "icon": "file-text"
+    },
+    {
+      "id": 3,
+      "title": "Asset Recovery",
+      "description": "Comprehensive asset tracing and recovery services to maximize debt collection outcomes.",
+      "features": [
+        "Asset investigation",
+        "Property searches",
+        "Bank account tracing",
+        "Recovery strategies"
+      ],
+      "icon": "search"
+    },
+    {
+      "id": 4,
+      "title": "Legal Collection Services",
+      "description": "Full legal representation for debt collection matters requiring court intervention.",
+      "features": [
+        "Legal proceedings",
+        "Judgment enforcement",
+        "Garnishment procedures",
+        "Bankruptcy proceedings"
+      ],
+      "icon": "scale"
+    }
+  ],
+  "process": [
+    {
+      "step": 1,
+      "title": "Case Assessment",
+      "description": "We review your case details, documentation, and assess the viability of recovery."
+    },
+    {
+      "step": 2,
+      "title": "Strategy Development",
+      "description": "Our team develops a customized recovery strategy based on debtor analysis and asset investigation."
+    },
+    {
+      "step": 3,
+      "title": "Implementation",
+      "description": "We execute the recovery plan through negotiation, legal action, or alternative dispute resolution."
+    },
+    {
+      "step": 4,
+      "title": "Recovery & Reporting",
+      "description": "Upon successful recovery, we provide detailed reporting and transparent fee structure."
+    }
+  ]
+}
