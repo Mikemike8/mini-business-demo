@@ -51,16 +51,16 @@ const SuccessStories: React.FC = () => {
     ));
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-center">
-          <div className="h-8 bg-gray-300 rounded w-64 mx-auto mb-4"></div>
-          <div className="h-4 bg-gray-300 rounded w-32 mx-auto"></div>
-        </div>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center">
+  //       <div className="animate-pulse text-center">
+  //         <div className="h-8 bg-gray-300 rounded w-64 mx-auto mb-4"></div>
+  //         <div className="h-4 bg-gray-300 rounded w-32 mx-auto"></div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   const totalRecovered = testimonials.reduce((sum, t) => sum + t.recoveredAmount, 0);
 
