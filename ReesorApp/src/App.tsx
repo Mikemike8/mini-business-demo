@@ -10,7 +10,7 @@ import SuccessStories from './pages/SuccessStories';
 import './App.css';
 
 function App() {
-  return (
+  return ( 
     <Router>
       <div className="min-h-screen bg-white flex flex-col">
         <Header />
