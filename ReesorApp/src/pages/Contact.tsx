@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { 
   Phone, 
   Mail, 
@@ -14,56 +15,79 @@ import {
 } from 'lucide-react';
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    company: '',
-    title: '',
-    debtAmount: '',
-    debtorName: '',
-    description: '',
-    urgency: 'medium',
-    hasDocumentation: false,
-  });
-  
+    const [formData, setFormData] = useState({
+  firstName: '',
+  lastName: '',
+  emailAddress: '',          // was `email`
+  phoneNumber: '',           // was `phone`
+  companyName: '',           // was `company`
+  title: '',
+  debtAmount: '',
+  debtorCompanyName: '',     // was `debtorName`
+  caseDescription: '',       // was `description`
+  urgencyLevel: 'medium',    // was `urgency`
+  hasSupportingDocumentation: false, 
+});
+
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
-    }));
-  };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleInputChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+) => {
+  const { name, value, type } = e.target;
+
+  const val = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+
+  setFormData(prev => ({
+    ...prev,
+    [name]: val,
+  }));
+};
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('loading');
+    setMessage('');
 
-    // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setStatus('success');
-      setMessage('Thank you for your submission! Our team will contact you within 24 hours to discuss your case.');
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        company: '',
-        title: '',
-        debtAmount: '',
-        debtorName: '',
-        description: '',
-        urgency: 'medium',
-        hasDocumentation: false,
+      const response = await fetch('http://localhost:5010/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-    } catch (error) {
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus('success');
+        setMessage('Thank you for your submission! Our team will contact you within 24 hours to discuss your case.');
+        setFormData({
+          firstName: '',
+  lastName: '',
+  emailAddress: '',          // was `email`
+  phoneNumber: '',           // was `phone`
+  companyName: '',           // was `company`
+  title: '',
+  debtAmount: '',
+  debtorCompanyName: '',     // was `debtorName`
+  caseDescription: '',       // was `description`
+  urgencyLevel: 'medium',    // was `urgency`
+  hasSupportingDocumentation: false, 
+        });
+      } else {
+        throw new Error(result.message || 'Submission failed');
+      }
+    } catch (error: any) {
       setStatus('error');
-      setMessage('Something went wrong. Please try again or call us directly.');
+      setMessage(error.message || 'Something went wrong. Please try again or call us directly.');
     }
   };
 
@@ -151,8 +175,8 @@ const Contact: React.FC = () => {
                       <input
                         type="email"
                         id="email"
-                        name="email"
-                        value={formData.email}
+                        name="emailAddress"
+                        value={formData.emailAddress}
                         onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-black transition-colors"
@@ -163,14 +187,15 @@ const Contact: React.FC = () => {
                         Phone Number *
                       </label>
                       <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-black transition-colors"
-                      />
+  type="tel"
+  id="phone"
+  name="phoneNumber"                // ✅ match your server field
+  value={formData.phoneNumber}      // ✅ match your state key
+  onChange={handleInputChange}
+  required
+  className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-black transition-colors"
+/>
+
                     </div>
                   </div>
 
@@ -181,14 +206,15 @@ const Contact: React.FC = () => {
                         Company Name *
                       </label>
                       <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-black transition-colors"
-                      />
+  type="text"
+  id="company"
+  name="companyName"                 // ✅ matches your server field
+  value={formData.companyName}       // ✅ matches your state key
+  onChange={handleInputChange}
+  required
+  className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-black transition-colors"
+/>
+
                     </div>
                     <div>
                       <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
@@ -226,13 +252,14 @@ const Contact: React.FC = () => {
                         Debtor Company Name
                       </label>
                       <input
-                        type="text"
-                        id="debtorName"
-                        name="debtorName"
-                        value={formData.debtorName}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-black transition-colors"
-                      />
+  type="text"
+  id="debtorName"
+  name="debtorCompanyName"                 // ✅ match server field
+  value={formData.debtorCompanyName}       // ✅ match state key
+  onChange={handleInputChange}
+  className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-black transition-colors"
+/>
+
                     </div>
                   </div>
 
@@ -243,8 +270,8 @@ const Contact: React.FC = () => {
                     </label>
                     <textarea
                       id="description"
-                      name="description"
-                      value={formData.description}
+                      name="caseDescription"
+                      value={formData.caseDescription}      // ✅ match state
                       onChange={handleInputChange}
                       required
                       rows={4}
@@ -259,12 +286,13 @@ const Contact: React.FC = () => {
                       Urgency Level
                     </label>
                     <select
-                      id="urgency"
-                      name="urgency"
-                      value={formData.urgency}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-black transition-colors"
-                    >
+  id="urgency"
+  name="urgencyLevel"                     // match backend
+  value={formData.urgencyLevel}           // match state property
+  onChange={handleInputChange}
+  className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-black transition-colors"
+>
+
                       <option value="low">Low - No immediate timeline</option>
                       <option value="medium">Medium - Within 30-60 days</option>
                       <option value="high">High - Within 30 days</option>
@@ -275,14 +303,15 @@ const Contact: React.FC = () => {
                   {/* Documentation Checkbox */}
                   <div className="flex items-center">
                     <input
-                      type="checkbox"
-                      id="hasDocumentation"
-                      name="hasDocumentation"
-                      checked={formData.hasDocumentation}
-                      onChange={handleInputChange}
-                      className="h-4 w-4 text-black focus:ring-black border-gray-300"
-                    />
-                    <label htmlFor="hasDocumentation" className="ml-2 block text-sm text-gray-700">
+  type="checkbox"
+  id="hasSupportingDocumentation"
+  name="hasSupportingDocumentation"
+  checked={formData.hasSupportingDocumentation}
+  onChange={handleInputChange}
+  className="h-4 w-4 text-black focus:ring-black border-gray-300"
+/>
+
+                    <label htmlFor="hasSupportingDocumentation" className="ml-2 block text-sm text-gray-700">
                       I have supporting documentation (invoices, contracts, etc.)
                     </label>
                   </div>

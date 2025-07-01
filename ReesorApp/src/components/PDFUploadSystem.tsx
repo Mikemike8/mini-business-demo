@@ -11,7 +11,10 @@ interface UploadedFile {
   file: File;
 }
 
+
 const PDFUploadSystem: React.FC = () => {
+  const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
+
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
 
@@ -37,21 +40,57 @@ const PDFUploadSystem: React.FC = () => {
     return null;
   };
 
-  const simulateUpload = (fileId: string) => {
-    const intervalId = setInterval(() => {
-      setFiles(prev => prev.map(file => {
-        if (file.id === fileId) {
-          const newProgress = Math.min(file.progress + Math.random() * 20, 100);
-          const status = newProgress >= 100 ? 'success' : 'uploading';
-          return { ...file, progress: newProgress, status };
-        }
-        return file;
-      }));
-    }, 200);
+  const uploadToCloudinary = async (uploadedFile: UploadedFile) => {
+  const cloudName = "dpttzjwpr";
+  const uploadPreset = "PDFDATA";
 
-    // Clear interval when upload completes
-    setTimeout(() => clearInterval(intervalId), 2000);
-  };
+  const formDataToUpload = new FormData();
+  formDataToUpload.append('file', uploadedFile.file);
+  formDataToUpload.append('upload_preset', uploadPreset);
+
+  try {
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, {
+      method: 'POST',
+      body: formDataToUpload,
+    });
+
+    const data = await response.json();
+
+if (response.ok && data.secure_url) {
+  // ✅ Save the secure URL so it appears in your list
+  setUploadedUrls(prev => [...prev, data.secure_url]);
+
+  // ✅ Mark file as uploaded
+  setFiles(prev =>
+    prev.map(file =>
+      file.id === uploadedFile.id
+        ? { ...file, status: 'success', progress: 100 }
+        : file
+    )
+  );
+} else {
+  // ✅ handle error as you already do
+  setFiles(prev =>
+    prev.map(file =>
+      file.id === uploadedFile.id
+        ? { ...file, status: 'error' }
+        : file
+    )
+  );
+}
+
+  } catch (error) {
+    console.error(error);
+    setFiles(prev =>
+      prev.map(file =>
+        file.id === uploadedFile.id
+          ? { ...file, status: 'error' }
+          : file
+      )
+    );
+  }
+};
+
 
   const handleFiles = useCallback((fileList: FileList) => {
     const newFiles: UploadedFile[] = [];
@@ -72,8 +111,9 @@ const PDFUploadSystem: React.FC = () => {
       newFiles.push(uploadedFile);
       
       if (!validationError) {
-        simulateUpload(uploadedFile.id);
-      }
+  uploadToCloudinary(uploadedFile);
+}
+
     });
     
     setFiles(prev => [...prev, ...newFiles]);
@@ -267,6 +307,7 @@ const PDFUploadSystem: React.FC = () => {
             </div>
           </div>
         )}
+       
 
         {/* Submit Button */}
         {files.some(file => file.status === 'success') && (
